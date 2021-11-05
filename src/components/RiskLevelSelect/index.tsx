@@ -11,19 +11,20 @@ const RiskLevelSelect = () => {
 
   return (
     <div>
-      <Grid className='risk-level__labels'>
+      <Grid>
         <Cell auto='all'>Low</Cell>
         <Cell auto='all' className='text-right'>
           High
         </Cell>
       </Grid>
-      <Grid className='risk-level__buttons'>
+      <Grid className='grid-margin-x'>
         {riskLevels.map((riskLevel) => (
           <Cell auto='all' key={`rl-btn-${riskLevel.level}`}>
             <Button
               color={Colors.PRIMARY}
               isHollow={riskLevel.level !== storedLevel}
               onClick={() => dispatch(setRiskLevel(riskLevel.level))}
+              style={{ width: '100%' }}
             >
               {riskLevel.level}
             </Button>
