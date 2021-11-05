@@ -21,7 +21,9 @@ const Home = () => {
                 </Cell>
                 <Cell small={2}>
                   <Link to='/calculator'>
-                    <Button color={Colors.SUCCESS}>Continue</Button>
+                    <Button color={Colors.SUCCESS} style={{ width: '100%' }}>
+                      Continue
+                    </Button>
                   </Link>
                 </Cell>
               </Grid>
@@ -31,7 +33,7 @@ const Home = () => {
                   <RiskLevelTable />
                 </Cell>
                 <Cell small={2}>
-                  <Button color={Colors.WARNING} isHollow>
+                  <Button color={Colors.WARNING} isHollow style={{ width: '100%' }}>
                     Watch graph
                   </Button>
                 </Cell>
