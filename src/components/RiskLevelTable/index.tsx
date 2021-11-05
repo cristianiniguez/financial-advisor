@@ -1,6 +1,10 @@
+import { useSelector } from 'react-redux';
 import riskLevels from '../../data/riskLevels';
+import { State } from '../../redux/reducers';
 
 const RiskLevelTable = () => {
+  const storedLevel = useSelector<State>((state) => state?.riskLevel);
+
   return (
     <table className='unstriped'>
       <thead>
@@ -15,7 +19,10 @@ const RiskLevelTable = () => {
       </thead>
       <tbody>
         {riskLevels.map((riskLevel) => (
-          <tr key={`rl-tr-${riskLevel.level}`}>
+          <tr
+            key={`rl-tr-${riskLevel.level}`}
+            style={{ backgroundColor: riskLevel.level === storedLevel ? 'skyblue' : 'transparent' }}
+          >
             <td className='text-right'>{riskLevel.level}</td>
             <td className='text-right'>{riskLevel.bonds * 100}</td>
             <td className='text-right'>{riskLevel.largeCap * 100}</td>
