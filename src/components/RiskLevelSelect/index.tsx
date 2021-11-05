@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button, Cell, Colors, Grid } from 'react-foundation';
 
 import riskLevels from '../../data/riskLevels';
+import { State } from '../../redux/reducers';
+import { setRiskLevel } from '../../redux/actions';
 
 const RiskLevelSelect = () => {
-  const [level, setLevel] = useState(riskLevels[0].level);
+  const storedLevel = useSelector<State>((state) => state?.riskLevel);
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -19,8 +22,8 @@ const RiskLevelSelect = () => {
           <Cell auto='all' key={`rl-btn-${riskLevel.level}`}>
             <Button
               color={Colors.PRIMARY}
-              isHollow={riskLevel.level !== level}
-              onClick={() => setLevel(riskLevel.level)}
+              isHollow={riskLevel.level !== storedLevel}
+              onClick={() => dispatch(setRiskLevel(riskLevel.level))}
             >
               {riskLevel.level}
             </Button>
