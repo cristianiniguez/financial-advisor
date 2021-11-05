@@ -6,7 +6,7 @@ const Layout: FC = ({ children }) => {
   return (
     <div>
       <Header />
-      <main>{children}</main>
+      {children}
     </div>
   );
 };

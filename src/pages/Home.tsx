@@ -1,5 +1,13 @@
+import RiskLevelSelect from '../components/RiskLevelSelect';
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <main>
+      <section>
+        <RiskLevelSelect />
+      </section>
+    </main>
+  );
 };
 
 export default Home;
