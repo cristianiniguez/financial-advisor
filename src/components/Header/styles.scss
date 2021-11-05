@@ -1,0 +1,10 @@
+@import '~foundation-sites/scss/global';
+
+.header {
+  background-color: map-get($foundation-palette, primary);
+  color: white;
+
+  &__link {
+    color: currentColor;
+  }
+}
