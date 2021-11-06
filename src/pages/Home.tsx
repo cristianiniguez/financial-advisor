@@ -4,7 +4,7 @@ import { Button, Cell, Colors, Grid, GridContainer } from 'react-foundation';
 import RiskLevelSelect from '../components/RiskLevelSelect';
 import RiskLevelTable from '../components/RiskLevelTable';
 
-const Home = () => {
+const HomePage = () => {
   return (
     <main>
       <section>
@@ -46,4 +46,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

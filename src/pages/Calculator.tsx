@@ -2,7 +2,7 @@ import { Cell, Grid, GridContainer } from 'react-foundation';
 
 import RiskLevelCurrent from '../components/RiskLevelCurrent';
 
-const Calculator = () => {
+const CalculatorPage = () => {
   return (
     <main>
       <section>
@@ -24,4 +24,4 @@ const Calculator = () => {
   );
 };
 
-export default Calculator;
+export default CalculatorPage;
