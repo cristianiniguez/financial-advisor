@@ -1,6 +1,7 @@
 import { Cell, Grid, GridContainer } from 'react-foundation';
 
 import RiskLevelCurrent from '../components/RiskLevelCurrent';
+import Calculator from '../components/Calculator';
 
 const CalculatorPage = () => {
   return (
@@ -16,6 +17,8 @@ const CalculatorPage = () => {
                   <RiskLevelCurrent />
                 </Cell>
               </Grid>
+
+              <Calculator />
             </Cell>
           </Grid>
         </GridContainer>
