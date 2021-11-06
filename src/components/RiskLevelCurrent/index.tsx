@@ -2,10 +2,10 @@ import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
 
 import { State } from '../../redux/reducers';
-import risks from '../../data/risks';
+import risks, { Level } from '../../data/risks';
 
 const RiskLevelCurrent = () => {
-  const storedLevel = useSelector<State>((state) => state?.riskLevel);
+  const storedLevel = useSelector<State, Level>((state) => state.riskLevel);
   const matchedRisk = risks.find((riskLevel) => riskLevel.level === storedLevel);
 
   if (!matchedRisk) {

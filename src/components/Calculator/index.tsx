@@ -13,7 +13,7 @@ type CalculatorInputsProps = {
 };
 
 const CalculatorInputs: FC<CalculatorInputsProps> = ({ name, label }) => {
-  const value = useSelector<State, number>((state) => state?.currentPortfolio[name] || 0);
+  const value = useSelector<State, number>((state) => state.currentPortfolio[name]);
   const dispatch = useDispatch();
 
   return (

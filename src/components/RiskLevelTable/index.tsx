@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
 
-import risks from '../../data/risks';
+import risks, { Level } from '../../data/risks';
 import { State } from '../../redux/reducers';
 
 const RiskLevelTable = () => {
-  const storedLevel = useSelector<State>((state) => state?.riskLevel);
+  const storedLevel = useSelector<State, Level>((state) => state.riskLevel);
 
   return (
     <table className='unstriped'>

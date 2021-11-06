@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Cell, Colors, Grid } from 'react-foundation';
 
-import risks from '../../data/risks';
+import risks, { Level } from '../../data/risks';
 import { State } from '../../redux/reducers';
 import { setRiskLevel } from '../../redux/actions';
 
 const RiskLevelSelect = () => {
-  const storedLevel = useSelector<State>((state) => state?.riskLevel);
+  const storedLevel = useSelector<State, Level>((state) => state.riskLevel);
   const dispatch = useDispatch();
 
   return (
