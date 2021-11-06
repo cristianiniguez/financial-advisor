@@ -1,21 +1,35 @@
 import { FC } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button, Cell, Colors, Grid } from 'react-foundation';
 
+import { State } from '../../redux/reducers';
+import { setCurrentAmount } from '../../redux/actions';
+import { Category } from '../../data/risks';
 import './styles.scss';
 
 type CalculatorInputsProps = {
-  name: string;
+  name: Category;
   label: string;
 };
 
 const CalculatorInputs: FC<CalculatorInputsProps> = ({ name, label }) => {
+  const value = useSelector<State, number>((state) => state?.currentPortfolio[name] || 0);
+  const dispatch = useDispatch();
+
   return (
     <>
       <td>
         <label htmlFor={`current-${name}`}>{label} $:</label>
       </td>
       <td>
-        <input type='number' min={0} step={100} id={`current-${name}`} />
+        <input
+          type='number'
+          min={0}
+          step={100}
+          id={`current-${name}`}
+          value={value}
+          onChange={(e) => dispatch(setCurrentAmount(name, parseFloat(e.target.value)))}
+        />
       </td>
       <td>
         <input type='number' readOnly />

@@ -19,6 +19,16 @@ const reducer: Reducer<State, Action> = (state, action) => {
           riskLevel: action.payload,
         }
       );
+    case 'SET_CURRENT_AMOUNT':
+      return (
+        state && {
+          ...state,
+          currentPortfolio: {
+            ...state?.currentPortfolio,
+            [action.payload.category]: action.payload.amount,
+          },
+        }
+      );
     default:
       return state;
   }
