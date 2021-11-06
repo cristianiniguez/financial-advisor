@@ -10,6 +10,13 @@ import './styles.scss';
 
 const initialState: State = {
   riskLevel: 1,
+  currentPortfolio: {
+    bonds: 0,
+    largeCap: 0,
+    midCap: 0,
+    foreign: 0,
+    smallCap: 0,
+  },
 };
 
 const store = createStore(reducers, initialState, (window as any).__REDUX_DEVTOOLS_EXTENSION__?.());

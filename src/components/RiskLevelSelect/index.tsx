@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Cell, Colors, Grid } from 'react-foundation';
 
-import riskLevels from '../../data/riskLevels';
+import risks from '../../data/risks';
 import { State } from '../../redux/reducers';
 import { setRiskLevel } from '../../redux/actions';
 
@@ -18,15 +18,15 @@ const RiskLevelSelect = () => {
         </Cell>
       </Grid>
       <Grid className='grid-margin-x'>
-        {riskLevels.map((riskLevel) => (
-          <Cell auto='all' key={`rl-btn-${riskLevel.level}`}>
+        {risks.map((risk) => (
+          <Cell auto='all' key={`rl-btn-${risk.level}`}>
             <Button
               color={Colors.PRIMARY}
-              isHollow={riskLevel.level !== storedLevel}
-              onClick={() => dispatch(setRiskLevel(riskLevel.level))}
+              isHollow={risk.level !== storedLevel}
+              onClick={() => dispatch(setRiskLevel(risk.level))}
               style={{ width: '100%' }}
             >
-              {riskLevel.level}
+              {risk.level}
             </Button>
           </Cell>
         ))}

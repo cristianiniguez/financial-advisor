@@ -2,19 +2,19 @@ import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
 
 import { State } from '../../redux/reducers';
-import riskLevels from '../../data/riskLevels';
+import risks from '../../data/risks';
 
 const RiskLevelCurrent = () => {
   const storedLevel = useSelector<State>((state) => state?.riskLevel);
-  const matchedLevel = riskLevels.find((riskLevel) => riskLevel.level === storedLevel);
+  const matchedRisk = risks.find((riskLevel) => riskLevel.level === storedLevel);
 
-  if (!matchedLevel) {
+  if (!matchedRisk) {
     return <Navigate to='/' />;
   }
 
   return (
     <div>
-      <h5>Risk Level {matchedLevel.level}</h5>
+      <h5>Risk Level {matchedRisk.level}</h5>
       <table>
         <thead>
           <tr>
@@ -27,11 +27,11 @@ const RiskLevelCurrent = () => {
         </thead>
         <tbody>
           <tr>
-            <td>{matchedLevel.bonds * 100}%</td>
-            <td>{matchedLevel.largeCap * 100}%</td>
-            <td>{matchedLevel.midCap * 100}%</td>
-            <td>{matchedLevel.foreign * 100}%</td>
-            <td>{matchedLevel.smallCap * 100}%</td>
+            <td>{matchedRisk.bonds * 100}%</td>
+            <td>{matchedRisk.largeCap * 100}%</td>
+            <td>{matchedRisk.midCap * 100}%</td>
+            <td>{matchedRisk.foreign * 100}%</td>
+            <td>{matchedRisk.smallCap * 100}%</td>
           </tr>
         </tbody>
       </table>
