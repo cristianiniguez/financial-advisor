@@ -16,18 +16,23 @@ export const getNewAmounts = (portfolio: Portfolio, risk: Risk): Portfolio => {
   };
 };
 
-export const getDiffs = (portfolio: Portfolio, risk: Risk): Portfolio => {
+const getTotalAmount = (p: Portfolio): number => {
+  return Object.values(p).reduce((a, b) => a + b, 0);
+};
+
+export const getResults = (portfolio: Portfolio, risk: Risk) => {
   const newAmounts = getNewAmounts(portfolio, risk);
 
-  return {
+  const diffs = {
     bonds: newAmounts.bonds - portfolio.bonds,
     largeCap: newAmounts.largeCap - portfolio.largeCap,
     midCap: newAmounts.midCap - portfolio.midCap,
     foreign: newAmounts.foreign - portfolio.foreign,
     smallCap: newAmounts.smallCap - portfolio.smallCap,
   };
-};
 
-const getTotalAmount = (p: Portfolio): number => {
-  return Object.values(p).reduce((a, b) => a + b, 0);
+  return {
+    newAmounts,
+    diffs,
+  };
 };

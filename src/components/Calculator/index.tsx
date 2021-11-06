@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { ChangeEventHandler, FC, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Cell, Colors, Grid } from 'react-foundation';
 
@@ -8,7 +8,7 @@ import { Category, Portfolio } from '../../data/risks';
 import useCurrentRisk from '../../hooks/useCurrentRisk';
 
 import './styles.scss';
-import { getDiffs, getNewAmounts } from '../../utils';
+import { getResults } from '../../utils';
 
 type CalculatorInputsProps = {
   name: Category;
@@ -20,14 +20,12 @@ const CalculatorInputs: FC<CalculatorInputsProps> = ({ name, label }) => {
   const portfolio = useSelector<State, Portfolio>((state) => state.currentPortfolio);
   const dispatch = useDispatch();
 
-  const results = useMemo(
-    () =>
-      risk && {
-        diffs: getDiffs(portfolio, risk),
-        newAmounts: getNewAmounts(portfolio, risk),
-      },
-    [portfolio, risk],
-  );
+  const results = useMemo(() => risk && getResults(portfolio, risk), [portfolio, risk]);
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const value = e.target.value;
+    dispatch(setCurrentAmount(name, value ? parseFloat(value) : 0));
+  };
 
   return (
     <>
@@ -41,7 +39,7 @@ const CalculatorInputs: FC<CalculatorInputsProps> = ({ name, label }) => {
           step={100}
           id={`current-${name}`}
           value={portfolio[name]}
-          onChange={(e) => dispatch(setCurrentAmount(name, parseFloat(e.target.value)))}
+          onChange={handleChange}
         />
       </td>
       <td>

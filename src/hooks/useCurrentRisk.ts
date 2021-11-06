@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux';
 
 import { State } from '../redux/reducers';
-import risks, { Risk } from '../data/risks';
+import { Risk } from '../data/risks';
+import { getRiskByLevel } from '../utils';
 
 const useCurrentRisk = (): Risk | undefined => {
   const matchedRisk = useSelector<State, Risk | undefined>((state) =>
-    risks.find((risk) => risk.level === state.riskLevel),
+    getRiskByLevel(state.riskLevel),
   );
 
   return matchedRisk;
