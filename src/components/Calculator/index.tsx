@@ -1,11 +1,14 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Cell, Colors, Grid } from 'react-foundation';
 
 import { State } from '../../redux/reducers';
 import { setCurrentAmount } from '../../redux/actions';
-import { Category } from '../../data/risks';
+import { Category, Portfolio } from '../../data/risks';
+import useCurrentRisk from '../../hooks/useCurrentRisk';
+
 import './styles.scss';
+import { getDiffs, getNewAmounts } from '../../utils';
 
 type CalculatorInputsProps = {
   name: Category;
@@ -13,8 +16,18 @@ type CalculatorInputsProps = {
 };
 
 const CalculatorInputs: FC<CalculatorInputsProps> = ({ name, label }) => {
-  const value = useSelector<State, number>((state) => state.currentPortfolio[name]);
+  const risk = useCurrentRisk();
+  const portfolio = useSelector<State, Portfolio>((state) => state.currentPortfolio);
   const dispatch = useDispatch();
+
+  const results = useMemo(
+    () =>
+      risk && {
+        diffs: getDiffs(portfolio, risk),
+        newAmounts: getNewAmounts(portfolio, risk),
+      },
+    [portfolio, risk],
+  );
 
   return (
     <>
@@ -27,15 +40,15 @@ const CalculatorInputs: FC<CalculatorInputsProps> = ({ name, label }) => {
           min={0}
           step={100}
           id={`current-${name}`}
-          value={value}
+          value={portfolio[name]}
           onChange={(e) => dispatch(setCurrentAmount(name, parseFloat(e.target.value)))}
         />
       </td>
       <td>
-        <input type='number' readOnly />
+        <input type='number' readOnly value={results ? results.diffs[name] : ''} />
       </td>
       <td>
-        <input type='number' readOnly />
+        <input type='number' readOnly value={results ? results.newAmounts[name] : ''} />
       </td>
     </>
   );
