@@ -12,6 +12,14 @@ export type Risk = {
   level: Level;
 } & Portfolio;
 
+export const labels: { [key in Category]: string } = {
+  bonds: 'Bonds',
+  largeCap: 'Large Cap',
+  midCap: 'Mid Cap',
+  foreign: 'Foreign',
+  smallCap: 'Small Cap',
+};
+
 const risks: Risk[] = [
   { level: 1, bonds: 0.8, largeCap: 0.2, midCap: 0, foreign: 0, smallCap: 0 },
   { level: 2, bonds: 0.7, largeCap: 0.15, midCap: 0.15, foreign: 0, smallCap: 0 },

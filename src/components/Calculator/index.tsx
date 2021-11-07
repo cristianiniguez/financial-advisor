@@ -4,7 +4,7 @@ import { Button, Cell, Colors, Grid } from 'react-foundation';
 
 import { State } from '../../redux/reducers';
 import { setCurrentAmount } from '../../redux/actions';
-import { Category, Portfolio } from '../../data/risks';
+import { Category, labels, Portfolio } from '../../data/risks';
 import useCurrentRisk from '../../hooks/useCurrentRisk';
 
 import './styles.scss';
@@ -12,25 +12,29 @@ import { getResults } from '../../utils';
 
 type CalculatorInputsProps = {
   name: Category;
-  label: string;
+  value: number;
+  newAmount: number | undefined;
+  diff: number | undefined;
+  onChange: (value: number) => void;
 };
 
-const CalculatorInputs: FC<CalculatorInputsProps> = ({ name, label }) => {
-  const risk = useCurrentRisk();
-  const portfolio = useSelector<State, Portfolio>((state) => state.currentPortfolio);
-  const dispatch = useDispatch();
-
-  const results = useMemo(() => risk && getResults(portfolio, risk), [portfolio, risk]);
-
+const CalculatorInputs: FC<CalculatorInputsProps> = ({
+  name,
+  value,
+  newAmount = '',
+  diff = '',
+  onChange,
+}) => {
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const value = e.target.value;
-    dispatch(setCurrentAmount(name, value ? parseFloat(value) : 0));
+    // dispatch(setCurrentAmount(name, value ? parseFloat(value) : 0));
+    onChange(value ? parseFloat(value) : 0);
   };
 
   return (
     <>
       <td>
-        <label htmlFor={`current-${name}`}>{label} $:</label>
+        <label htmlFor={`current-${name}`}>{labels[name]} $:</label>
       </td>
       <td>
         <input
@@ -38,21 +42,27 @@ const CalculatorInputs: FC<CalculatorInputsProps> = ({ name, label }) => {
           min={0}
           step={100}
           id={`current-${name}`}
-          value={portfolio[name]}
+          value={value}
           onChange={handleChange}
         />
       </td>
       <td>
-        <input type='number' readOnly value={results ? results.diffs[name] : ''} />
+        <input type='number' readOnly value={diff} />
       </td>
       <td>
-        <input type='number' readOnly value={results ? results.newAmounts[name] : ''} />
+        <input type='number' readOnly value={newAmount} />
       </td>
     </>
   );
 };
 
 const Calculator = () => {
+  const risk = useCurrentRisk();
+  const portfolio = useSelector<State, Portfolio>((state) => state.currentPortfolio);
+  const dispatch = useDispatch();
+
+  const results = useMemo(() => risk && getResults(portfolio, risk), [portfolio, risk]);
+
   return (
     <div>
       <Grid>
@@ -80,20 +90,59 @@ const Calculator = () => {
             </thead>
             <tbody>
               <tr>
-                <CalculatorInputs name='bonds' label='Bonds' />
-                <td rowSpan={5} className='calculator__transfers'></td>
+                <CalculatorInputs
+                  name='bonds'
+                  value={portfolio.bonds}
+                  newAmount={results?.newAmounts.bonds}
+                  diff={results?.diffs.bonds}
+                  onChange={(value) => dispatch(setCurrentAmount('bonds', value))}
+                />
+                <td rowSpan={5} className='calculator__transfers'>
+                  <ul>
+                    {results?.transfers.map((transfer, i) => (
+                      <li key={`transfer-${i}`}>
+                        Transfer ${transfer.value} from {labels[transfer.from]} to{' '}
+                        {labels[transfer.to]}.
+                      </li>
+                    ))}
+                  </ul>
+                </td>
               </tr>
               <tr>
-                <CalculatorInputs name='largeCap' label='Large Cap' />
+                <CalculatorInputs
+                  name='largeCap'
+                  value={portfolio.largeCap}
+                  newAmount={results?.newAmounts.largeCap}
+                  diff={results?.diffs.largeCap}
+                  onChange={(value) => dispatch(setCurrentAmount('largeCap', value))}
+                />
               </tr>
               <tr>
-                <CalculatorInputs name='midCap' label='Mid Cap' />
+                <CalculatorInputs
+                  name='midCap'
+                  value={portfolio.midCap}
+                  newAmount={results?.newAmounts.midCap}
+                  diff={results?.diffs.midCap}
+                  onChange={(value) => dispatch(setCurrentAmount('midCap', value))}
+                />
               </tr>
               <tr>
-                <CalculatorInputs name='foreign' label='Foreign' />
+                <CalculatorInputs
+                  name='foreign'
+                  value={portfolio.foreign}
+                  newAmount={results?.newAmounts.foreign}
+                  diff={results?.diffs.foreign}
+                  onChange={(value) => dispatch(setCurrentAmount('foreign', value))}
+                />
               </tr>
               <tr>
-                <CalculatorInputs name='smallCap' label='Small Cap' />
+                <CalculatorInputs
+                  name='smallCap'
+                  value={portfolio.smallCap}
+                  newAmount={results?.newAmounts.smallCap}
+                  diff={results?.diffs.smallCap}
+                  onChange={(value) => dispatch(setCurrentAmount('smallCap', value))}
+                />
               </tr>
             </tbody>
           </table>

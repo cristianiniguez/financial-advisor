@@ -50,15 +50,12 @@ const getTransfers = (diffs: Portfolio) => {
   let sortedNegativeDiffs = negativeDiffs.sort((a, b) => a.value - b.value);
 
   const thereAreNonZeroDiffs = () => {
-    return (
-      sortedPositiveDiffs.some((diff) => diff.value) ||
-      sortedNegativeDiffs.some((diff) => diff.value)
-    );
+    return sortedPositiveDiffs.length > 0 || sortedNegativeDiffs.length > 0;
   };
 
   while (thereAreNonZeroDiffs()) {
-    const firstPositiveDiff = sortedPositiveDiffs[0];
-    const firstNegativeDiff = sortedNegativeDiffs[0];
+    const [firstPositiveDiff] = sortedPositiveDiffs;
+    const [firstNegativeDiff] = sortedNegativeDiffs;
 
     const newTransfer = {
       from: firstNegativeDiff.category,
@@ -67,21 +64,21 @@ const getTransfers = (diffs: Portfolio) => {
 
     if (firstPositiveDiff.value > firstNegativeDiff.value) {
       sortedPositiveDiffs[0].value -= firstNegativeDiff.value;
-      const [, ...nonZeroNegativeDiffs] = negativeDiffs;
+      const [, ...nonZeroNegativeDiffs] = sortedNegativeDiffs;
       sortedNegativeDiffs = nonZeroNegativeDiffs;
 
       transfers.push({ ...newTransfer, value: firstNegativeDiff.value });
     } else if (firstPositiveDiff.value < firstNegativeDiff.value) {
       sortedNegativeDiffs[0].value -= firstPositiveDiff.value;
-      const [, ...nonZeroPositiveDiffs] = positiveDiffs;
+      const [, ...nonZeroPositiveDiffs] = sortedPositiveDiffs;
       sortedPositiveDiffs = nonZeroPositiveDiffs;
 
       transfers.push({ ...newTransfer, value: firstPositiveDiff.value });
     } else {
-      const [, ...nonZeroNegativeDiffs] = negativeDiffs;
+      const [, ...nonZeroNegativeDiffs] = sortedNegativeDiffs;
       sortedNegativeDiffs = nonZeroNegativeDiffs;
 
-      const [, ...nonZeroPositiveDiffs] = positiveDiffs;
+      const [, ...nonZeroPositiveDiffs] = sortedPositiveDiffs;
       sortedPositiveDiffs = nonZeroPositiveDiffs;
 
       transfers.push({ ...newTransfer, value: firstPositiveDiff.value });
