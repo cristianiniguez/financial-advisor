@@ -92,11 +92,12 @@ export const getResults = (portfolio: Portfolio, risk: Risk) => {
   const newAmounts = getNewAmounts(portfolio, risk);
 
   const diffs = {
-    bonds: newAmounts.bonds - portfolio.bonds,
-    largeCap: newAmounts.largeCap - portfolio.largeCap,
-    midCap: newAmounts.midCap - portfolio.midCap,
-    foreign: newAmounts.foreign - portfolio.foreign,
-    smallCap: newAmounts.smallCap - portfolio.smallCap,
+    /* using rounded numbers in case there are very small amounts on portfolio */
+    bonds: round(newAmounts.bonds - portfolio.bonds),
+    largeCap: round(newAmounts.largeCap - portfolio.largeCap),
+    midCap: round(newAmounts.midCap - portfolio.midCap),
+    foreign: round(newAmounts.foreign - portfolio.foreign),
+    smallCap: round(newAmounts.smallCap - portfolio.smallCap),
   };
 
   const transfers = getTransfers(diffs);
@@ -106,4 +107,9 @@ export const getResults = (portfolio: Portfolio, risk: Risk) => {
     diffs,
     transfers,
   };
+};
+
+export const round = (number: number, decimals: number = 2): number => {
+  const factor = 10 ** decimals;
+  return Math.round(number * factor) / factor;
 };
