@@ -12,7 +12,7 @@ const RiskLevelCurrent = () => {
   return (
     <div>
       <h5>Risk Level {risk.level}</h5>
-      <table>
+      <table role='table'>
         <thead>
           <tr>
             <th className='text-center' style={{ width: '20%' }}>
