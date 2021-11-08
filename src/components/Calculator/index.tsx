@@ -8,6 +8,7 @@ import useCurrentRisk from '../../hooks/useCurrentRisk';
 
 import './styles.scss';
 import { getResults } from '../../utils';
+import classNames from 'classnames';
 
 type CalculatorInputsProps = {
   name: Category;
@@ -47,14 +48,14 @@ const CalculatorInputs: FC<CalculatorInputsProps> = ({
       </td>
       <td>
         <input
-          type='number'
+          type='text'
           readOnly
-          value={diff}
-          className={['text-right', diff > 0 ? 'diff-p' : diff < 0 ? 'diff-n' : ''].join(' ')}
+          value={diff > 0 ? `+${diff}` : diff}
+          className={classNames('text-right', { 'diff-p': diff > 0, 'diff-n': diff < 0 })}
         />
       </td>
       <td>
-        <input type='number' readOnly value={newAmount} className='text-right new-amount' />
+        <input type='text' readOnly value={newAmount} className='text-right new-amount' />
       </td>
     </>
   );
