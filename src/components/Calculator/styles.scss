@@ -1,7 +1,25 @@
+@import '~foundation-sites/scss/global';
+
 .calculator {
   &__table {
     input {
       margin: 0;
+
+      &[readonly] {
+        font-weight: bold;
+      }
+
+      &.new-amount {
+        color: map-get($foundation-palette, primary);
+      }
+
+      &.diff-p {
+        color: map-get($foundation-palette, success);
+      }
+
+      &.diff-n {
+        color: map-get($foundation-palette, alert);
+      }
     }
   }
 }

@@ -27,7 +27,6 @@ const CalculatorInputs: FC<CalculatorInputsProps> = ({
 }) => {
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const value = e.target.value;
-    // dispatch(setCurrentAmount(name, value ? parseFloat(value) : 0));
     onChange(value ? parseFloat(value) : 0);
   };
 
@@ -38,6 +37,7 @@ const CalculatorInputs: FC<CalculatorInputsProps> = ({
       </td>
       <td>
         <input
+          className='text-right'
           type='number'
           min={0}
           step={100}
@@ -47,10 +47,15 @@ const CalculatorInputs: FC<CalculatorInputsProps> = ({
         />
       </td>
       <td>
-        <input type='number' readOnly value={diff} />
+        <input
+          type='number'
+          readOnly
+          value={diff}
+          className={['text-right', diff > 0 ? 'diff-p' : diff < 0 ? 'diff-n' : ''].join(' ')}
+        />
       </td>
       <td>
-        <input type='number' readOnly value={newAmount} />
+        <input type='number' readOnly value={newAmount} className='text-right new-amount' />
       </td>
     </>
   );
@@ -80,12 +85,18 @@ const Calculator = () => {
           <table className='unstriped calculator__table'>
             <thead>
               <tr>
-                <th className='text-center' colSpan={2}>
+                <th style={{ width: '30%' }} className='text-center' colSpan={2}>
                   Current Amount
                 </th>
-                <th className='text-center'>Difference</th>
-                <th className='text-center'>New Amount</th>
-                <th className='text-center'>Recommended Transfers</th>
+                <th style={{ width: '20%' }} className='text-center'>
+                  Difference
+                </th>
+                <th style={{ width: '20%' }} className='text-center'>
+                  New Amount
+                </th>
+                <th style={{ width: '20%' }} className='text-center'>
+                  Recommended Transfers
+                </th>
               </tr>
             </thead>
             <tbody>
