@@ -21,6 +21,7 @@ const RiskLevelSelect = () => {
         {risks.map((risk) => (
           <Cell auto='all' key={`rl-btn-${risk.level}`}>
             <Button
+              role='button'
               color={Colors.PRIMARY}
               isHollow={risk.level !== storedLevel}
               isExpanded
