@@ -15,11 +15,11 @@ const RiskLevelCurrent = () => {
       <table>
         <thead>
           <tr>
-            <th>Bonds</th>
-            <th>Large Cap</th>
-            <th>Mid Cap</th>
-            <th>Foreign</th>
-            <th>Small Cap</th>
+            <th style={{ width: '20%' }}>Bonds</th>
+            <th style={{ width: '20%' }}>Large Cap</th>
+            <th style={{ width: '20%' }}>Mid Cap</th>
+            <th style={{ width: '20%' }}>Foreign</th>
+            <th style={{ width: '20%' }}>Small Cap</th>
           </tr>
         </thead>
         <tbody>
