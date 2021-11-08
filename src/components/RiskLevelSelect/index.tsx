@@ -23,8 +23,8 @@ const RiskLevelSelect = () => {
             <Button
               color={Colors.PRIMARY}
               isHollow={risk.level !== storedLevel}
+              isExpanded
               onClick={() => dispatch(setRiskLevel(risk.level))}
-              style={{ width: '100%' }}
             >
               {risk.level}
             </Button>

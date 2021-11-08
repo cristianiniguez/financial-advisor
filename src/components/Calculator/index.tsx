@@ -71,7 +71,7 @@ const Calculator = () => {
         </Cell>
 
         <Cell small={2}>
-          <Button color={Colors.PRIMARY} style={{ width: '100%' }} isDisabled>
+          <Button color={Colors.PRIMARY} isExpanded isDisabled>
             Rebalance
           </Button>
         </Cell>
