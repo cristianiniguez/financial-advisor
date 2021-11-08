@@ -15,20 +15,30 @@ const RiskLevelCurrent = () => {
       <table>
         <thead>
           <tr>
-            <th style={{ width: '20%' }}>Bonds</th>
-            <th style={{ width: '20%' }}>Large Cap</th>
-            <th style={{ width: '20%' }}>Mid Cap</th>
-            <th style={{ width: '20%' }}>Foreign</th>
-            <th style={{ width: '20%' }}>Small Cap</th>
+            <th className='text-center' style={{ width: '20%' }}>
+              Bonds
+            </th>
+            <th className='text-center' style={{ width: '20%' }}>
+              Large Cap
+            </th>
+            <th className='text-center' style={{ width: '20%' }}>
+              Mid Cap
+            </th>
+            <th className='text-center' style={{ width: '20%' }}>
+              Foreign
+            </th>
+            <th className='text-center' style={{ width: '20%' }}>
+              Small Cap
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{risk.bonds * 100}%</td>
-            <td>{risk.largeCap * 100}%</td>
-            <td>{risk.midCap * 100}%</td>
-            <td>{risk.foreign * 100}%</td>
-            <td>{risk.smallCap * 100}%</td>
+            <td className='text-right'>{risk.bonds * 100}%</td>
+            <td className='text-right'>{risk.largeCap * 100}%</td>
+            <td className='text-right'>{risk.midCap * 100}%</td>
+            <td className='text-right'>{risk.foreign * 100}%</td>
+            <td className='text-right'>{risk.smallCap * 100}%</td>
           </tr>
         </tbody>
       </table>
