@@ -4,7 +4,7 @@ import { Button, Cell, Colors, Grid } from 'react-foundation';
 
 import { State } from '../../redux/reducers';
 import { setCurrentAmount } from '../../redux/actions';
-import { Category, labels, Portfolio } from '../../data/risks';
+import { Category, labels, Allocation } from '../../data/risks';
 import useCurrentRisk from '../../hooks/useCurrentRisk';
 
 import './styles.scss';
@@ -63,16 +63,16 @@ const CalculatorInputs: FC<CalculatorInputsProps> = ({
 
 const Calculator = () => {
   const risk = useCurrentRisk();
-  const portfolio = useSelector<State, Portfolio>((state) => state.currentPortfolio);
+  const allocation = useSelector<State, Allocation>((state) => state.currentAllocation);
   const dispatch = useDispatch();
 
-  const results = useMemo(() => risk && getResults(portfolio, risk), [portfolio, risk]);
+  const results = useMemo(() => risk && getResults(allocation, risk), [allocation, risk]);
 
   return (
     <div>
       <Grid>
         <Cell small={10}>
-          <h5>Please Enter Your Current Portfolio</h5>
+          <h5>Please Enter Your Current allocation</h5>
         </Cell>
 
         <Cell small={2}>
@@ -103,7 +103,7 @@ const Calculator = () => {
               <tr>
                 <CalculatorInputs
                   name='bonds'
-                  value={portfolio.bonds}
+                  value={allocation.bonds}
                   newAmount={results?.newAmounts.bonds}
                   diff={results?.diffs.bonds}
                   onChange={(value) => dispatch(setCurrentAmount('bonds', value))}
@@ -122,7 +122,7 @@ const Calculator = () => {
               <tr>
                 <CalculatorInputs
                   name='largeCap'
-                  value={portfolio.largeCap}
+                  value={allocation.largeCap}
                   newAmount={results?.newAmounts.largeCap}
                   diff={results?.diffs.largeCap}
                   onChange={(value) => dispatch(setCurrentAmount('largeCap', value))}
@@ -131,7 +131,7 @@ const Calculator = () => {
               <tr>
                 <CalculatorInputs
                   name='midCap'
-                  value={portfolio.midCap}
+                  value={allocation.midCap}
                   newAmount={results?.newAmounts.midCap}
                   diff={results?.diffs.midCap}
                   onChange={(value) => dispatch(setCurrentAmount('midCap', value))}
@@ -140,7 +140,7 @@ const Calculator = () => {
               <tr>
                 <CalculatorInputs
                   name='foreign'
-                  value={portfolio.foreign}
+                  value={allocation.foreign}
                   newAmount={results?.newAmounts.foreign}
                   diff={results?.diffs.foreign}
                   onChange={(value) => dispatch(setCurrentAmount('foreign', value))}
@@ -149,7 +149,7 @@ const Calculator = () => {
               <tr>
                 <CalculatorInputs
                   name='smallCap'
-                  value={portfolio.smallCap}
+                  value={allocation.smallCap}
                   newAmount={results?.newAmounts.smallCap}
                   diff={results?.diffs.smallCap}
                   onChange={(value) => dispatch(setCurrentAmount('smallCap', value))}

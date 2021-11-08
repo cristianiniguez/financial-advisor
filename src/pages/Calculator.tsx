@@ -10,7 +10,7 @@ const CalculatorPage = () => {
         <GridContainer>
           <Grid>
             <Cell small={12}>
-              <h4 className='text-center'>Personalized Portfolio</h4>
+              <h4 className='text-center'>Personalized allocation</h4>
 
               <Grid>
                 <Cell small={8} offsetOnSmall={2}>

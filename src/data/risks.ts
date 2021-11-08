@@ -4,13 +4,13 @@ export type Level = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export type Category = typeof categories[number];
 
-export type Portfolio = {
+export type Allocation = {
   [key in Category]: number;
 };
 
 export type Risk = {
   level: Level;
-} & Portfolio;
+} & Allocation;
 
 export const labels: { [key in Category]: string } = {
   bonds: 'Bonds',

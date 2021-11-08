@@ -1,16 +1,16 @@
 import { Reducer } from 'redux';
 
 import { Action } from '../actions';
-import { Portfolio, Level } from '../../data/risks';
+import { Allocation, Level } from '../../data/risks';
 
 export type State = {
   riskLevel: Level;
-  currentPortfolio: Portfolio;
+  currentAllocation: Allocation;
 };
 
 const initialState: State = {
   riskLevel: 1,
-  currentPortfolio: {
+  currentAllocation: {
     bonds: 0,
     largeCap: 0,
     midCap: 0,
@@ -29,8 +29,8 @@ const reducer: Reducer<State, Action> = (state = initialState, action) => {
     case 'SET_CURRENT_AMOUNT':
       return {
         ...state,
-        currentPortfolio: {
-          ...state.currentPortfolio,
+        currentAllocation: {
+          ...state.currentAllocation,
           [action.payload.category]: action.payload.amount,
         },
       };

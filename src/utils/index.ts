@@ -1,11 +1,11 @@
-import risks, { categories, Category, Level, Portfolio, Risk } from '../data/risks';
+import risks, { categories, Category, Level, Allocation, Risk } from '../data/risks';
 
 export const getRiskByLevel = (level: Level): Risk | undefined => {
   return risks.find((risk) => risk.level === level);
 };
 
-export const getNewAmounts = (portfolio: Portfolio, risk: Risk): Portfolio => {
-  const totalAmount = getTotalAmount(portfolio);
+export const getNewAmounts = (allocation: Allocation, risk: Risk): Allocation => {
+  const totalAmount = getTotalAmount(allocation);
 
   return {
     bonds: totalAmount * risk.bonds,
@@ -16,11 +16,11 @@ export const getNewAmounts = (portfolio: Portfolio, risk: Risk): Portfolio => {
   };
 };
 
-const getTotalAmount = (p: Portfolio): number => {
-  return Object.values(p).reduce((a, b) => a + b, 0);
+const getTotalAmount = (allocation: Allocation): number => {
+  return Object.values(allocation).reduce((a, b) => a + b, 0);
 };
 
-const getTransfers = (diffs: Portfolio) => {
+const getTransfers = (diffs: Allocation) => {
   type Transfer = {
     from: Category;
     to: Category;
@@ -88,16 +88,16 @@ const getTransfers = (diffs: Portfolio) => {
   return transfers;
 };
 
-export const getResults = (portfolio: Portfolio, risk: Risk) => {
-  const newAmounts = getNewAmounts(portfolio, risk);
+export const getResults = (allocation: Allocation, risk: Risk) => {
+  const newAmounts = getNewAmounts(allocation, risk);
 
-  const diffs = {
-    /* using rounded numbers in case there are very small amounts on portfolio */
-    bonds: round(newAmounts.bonds - portfolio.bonds),
-    largeCap: round(newAmounts.largeCap - portfolio.largeCap),
-    midCap: round(newAmounts.midCap - portfolio.midCap),
-    foreign: round(newAmounts.foreign - portfolio.foreign),
-    smallCap: round(newAmounts.smallCap - portfolio.smallCap),
+  const diffs: Allocation = {
+    /* using rounded numbers in case there are very small amounts on allocation */
+    bonds: round(newAmounts.bonds - allocation.bonds),
+    largeCap: round(newAmounts.largeCap - allocation.largeCap),
+    midCap: round(newAmounts.midCap - allocation.midCap),
+    foreign: round(newAmounts.foreign - allocation.foreign),
+    smallCap: round(newAmounts.smallCap - allocation.smallCap),
   };
 
   const transfers = getTransfers(diffs);

@@ -12,7 +12,7 @@ const HomePage = () => {
           <Grid>
             <Cell small={12}>
               <h4 className='text-center'>
-                Please select a Risk Level for your Investment Portfolio
+                Please select a Risk Level for your Investment allocation
               </h4>
 
               <Grid alignY='bottom' className='grid-padding-x'>
