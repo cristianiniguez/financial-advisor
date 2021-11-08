@@ -1,19 +1,20 @@
 import { Link } from 'react-router-dom';
-import { Menu, MenuItem, MenuText } from 'react-foundation';
+import { GridContainer, Menu, MenuItem } from 'react-foundation';
 
 import './styles.scss';
 
 const Header = () => {
   return (
     <header className='header'>
-      <Menu>
-        <MenuText>Financial Advisor</MenuText>
-        <MenuItem>
-          <Link to='/' className='header__link'>
-            Home
-          </Link>
-        </MenuItem>
-      </Menu>
+      <GridContainer className='header__container'>
+        <Menu>
+          <MenuItem>
+            <Link to='/' className='header__link'>
+              Financial Advisor
+            </Link>
+          </MenuItem>
+        </Menu>
+      </GridContainer>
     </header>
   );
 };
