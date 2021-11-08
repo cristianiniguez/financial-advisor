@@ -1,6 +1,12 @@
 @import '~foundation-sites/scss/global';
 
 .calculator {
+  margin: 1rem 0;
+
+  &__title {
+    margin-bottom: 1rem;
+  }
+
   &__table {
     input {
       margin: 0;

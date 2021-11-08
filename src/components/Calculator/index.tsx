@@ -1,6 +1,5 @@
 import { ChangeEventHandler, FC, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Cell, Colors, Grid } from 'react-foundation';
 
 import { State } from '../../redux/reducers';
 import { setCurrentAmount } from '../../redux/actions';
@@ -69,96 +68,84 @@ const Calculator = () => {
   const results = useMemo(() => risk && getResults(allocation, risk), [allocation, risk]);
 
   return (
-    <div>
-      <Grid>
-        <Cell small={10}>
-          <h5>Please Enter Your Current allocation</h5>
-        </Cell>
+    <div className='calculator'>
+      <h5 className='calculator__title'>Please Enter Your Current allocation</h5>
 
-        <Cell small={2}>
-          <Button color={Colors.PRIMARY} isExpanded isDisabled>
-            Rebalance
-          </Button>
-        </Cell>
-
-        <Cell small={12}>
-          <table className='unstriped calculator__table'>
-            <thead>
-              <tr>
-                <th style={{ width: '30%' }} className='text-center' colSpan={2}>
-                  Current Amount
-                </th>
-                <th style={{ width: '20%' }} className='text-center'>
-                  Difference
-                </th>
-                <th style={{ width: '20%' }} className='text-center'>
-                  New Amount
-                </th>
-                <th style={{ width: '20%' }} className='text-center'>
-                  Recommended Transfers
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <CalculatorInputs
-                  name='bonds'
-                  value={allocation.bonds}
-                  newAmount={results?.newAmounts.bonds}
-                  diff={results?.diffs.bonds}
-                  onChange={(value) => dispatch(setCurrentAmount('bonds', value))}
-                />
-                <td rowSpan={5} className='calculator__transfers'>
-                  <ul>
-                    {results?.transfers.map((transfer, i) => (
-                      <li key={`transfer-${i}`}>
-                        Transfer ${transfer.value} from {labels[transfer.from]} to{' '}
-                        {labels[transfer.to]}.
-                      </li>
-                    ))}
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <CalculatorInputs
-                  name='largeCap'
-                  value={allocation.largeCap}
-                  newAmount={results?.newAmounts.largeCap}
-                  diff={results?.diffs.largeCap}
-                  onChange={(value) => dispatch(setCurrentAmount('largeCap', value))}
-                />
-              </tr>
-              <tr>
-                <CalculatorInputs
-                  name='midCap'
-                  value={allocation.midCap}
-                  newAmount={results?.newAmounts.midCap}
-                  diff={results?.diffs.midCap}
-                  onChange={(value) => dispatch(setCurrentAmount('midCap', value))}
-                />
-              </tr>
-              <tr>
-                <CalculatorInputs
-                  name='foreign'
-                  value={allocation.foreign}
-                  newAmount={results?.newAmounts.foreign}
-                  diff={results?.diffs.foreign}
-                  onChange={(value) => dispatch(setCurrentAmount('foreign', value))}
-                />
-              </tr>
-              <tr>
-                <CalculatorInputs
-                  name='smallCap'
-                  value={allocation.smallCap}
-                  newAmount={results?.newAmounts.smallCap}
-                  diff={results?.diffs.smallCap}
-                  onChange={(value) => dispatch(setCurrentAmount('smallCap', value))}
-                />
-              </tr>
-            </tbody>
-          </table>
-        </Cell>
-      </Grid>
+      <table className='unstriped calculator__table'>
+        <thead>
+          <tr>
+            <th style={{ width: '30%' }} className='text-center' colSpan={2}>
+              Current Amount
+            </th>
+            <th style={{ width: '20%' }} className='text-center'>
+              Difference
+            </th>
+            <th style={{ width: '20%' }} className='text-center'>
+              New Amount
+            </th>
+            <th style={{ width: '20%' }} className='text-center'>
+              Recommended Transfers
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <CalculatorInputs
+              name='bonds'
+              value={allocation.bonds}
+              newAmount={results?.newAmounts.bonds}
+              diff={results?.diffs.bonds}
+              onChange={(value) => dispatch(setCurrentAmount('bonds', value))}
+            />
+            <td rowSpan={5} className='calculator__transfers'>
+              <ul>
+                {results?.transfers.map((transfer, i) => (
+                  <li key={`transfer-${i}`}>
+                    Transfer ${transfer.value} from {labels[transfer.from]} to {labels[transfer.to]}
+                    .
+                  </li>
+                ))}
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <CalculatorInputs
+              name='largeCap'
+              value={allocation.largeCap}
+              newAmount={results?.newAmounts.largeCap}
+              diff={results?.diffs.largeCap}
+              onChange={(value) => dispatch(setCurrentAmount('largeCap', value))}
+            />
+          </tr>
+          <tr>
+            <CalculatorInputs
+              name='midCap'
+              value={allocation.midCap}
+              newAmount={results?.newAmounts.midCap}
+              diff={results?.diffs.midCap}
+              onChange={(value) => dispatch(setCurrentAmount('midCap', value))}
+            />
+          </tr>
+          <tr>
+            <CalculatorInputs
+              name='foreign'
+              value={allocation.foreign}
+              newAmount={results?.newAmounts.foreign}
+              diff={results?.diffs.foreign}
+              onChange={(value) => dispatch(setCurrentAmount('foreign', value))}
+            />
+          </tr>
+          <tr>
+            <CalculatorInputs
+              name='smallCap'
+              value={allocation.smallCap}
+              newAmount={results?.newAmounts.smallCap}
+              diff={results?.diffs.smallCap}
+              onChange={(value) => dispatch(setCurrentAmount('smallCap', value))}
+            />
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };
