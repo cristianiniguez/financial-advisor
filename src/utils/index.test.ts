@@ -1,5 +1,5 @@
-import { getResults } from '.';
-import risks, { Allocation } from '../data/risks';
+import { getResults, getRiskByLevel, percentFormat } from '.';
+import risks, { Allocation, Level } from '../data/risks';
 
 const mockAmount: Allocation = {
   bonds: 1000,
@@ -67,5 +67,21 @@ describe('getResults', () => {
 
       expect(transfers).toHaveLength(0);
     });
+  });
+});
+
+describe('getRiskByLevel', () => {
+  test('returns the correct risk', () => {
+    const level: Level = 1;
+    const foundLevel = getRiskByLevel(level);
+    expect(foundLevel).toStrictEqual(risks[0]);
+  });
+});
+
+describe('percentFormat', () => {
+  test('works correctly', () => {
+    const value = 0.35;
+    const expected = '35%';
+    expect(percentFormat(value)).toBe(expected);
   });
 });
