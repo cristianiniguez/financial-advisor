@@ -4,7 +4,7 @@ export const getRiskByLevel = (level: Level): Risk | undefined => {
   return risks.find((risk) => risk.level === level);
 };
 
-export const getNewAmounts = (allocation: Allocation, risk: Risk): Allocation => {
+const getNewAmounts = (allocation: Allocation, risk: Risk): Allocation => {
   const totalAmount = getTotalAmount(allocation);
 
   return {
