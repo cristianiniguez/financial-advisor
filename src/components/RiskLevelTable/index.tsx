@@ -7,7 +7,7 @@ const RiskLevelTable = () => {
   const storedLevel = useSelector<State, Level>((state) => state.riskLevel);
 
   return (
-    <table className='unstriped'>
+    <table className='unstriped' role='table'>
       <thead>
         <tr>
           <th className='text-center'>Risk</th>
