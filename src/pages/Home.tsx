@@ -3,8 +3,12 @@ import { Button, Cell, Colors, Grid, GridContainer } from 'react-foundation';
 
 import RiskLevelSelect from '../components/RiskLevelSelect';
 import RiskLevelTable from '../components/RiskLevelTable';
+import { useState } from 'react';
+import Donut from '../components/Donut';
 
 const HomePage = () => {
+  const [graph, setGraph] = useState(false);
+
   return (
     <main>
       <section>
@@ -30,11 +34,16 @@ const HomePage = () => {
 
               <Grid className='grid-padding-x'>
                 <Cell small={10} className='risk-level__table'>
-                  <RiskLevelTable />
+                  {graph ? <Donut /> : <RiskLevelTable />}
                 </Cell>
                 <Cell small={2}>
-                  <Button color={Colors.WARNING} isHollow isExpanded>
-                    Watch graph
+                  <Button
+                    color={Colors.WARNING}
+                    isHollow
+                    isExpanded
+                    onClick={() => setGraph(!graph)}
+                  >
+                    Watch {graph ? 'table' : 'graph'}
                   </Button>
                 </Cell>
               </Grid>

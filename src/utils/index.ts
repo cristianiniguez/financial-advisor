@@ -113,3 +113,7 @@ export const round = (number: number, decimals: number = 2): number => {
   const factor = 10 ** decimals;
   return Math.round(number * factor) / factor;
 };
+
+export const percentFormat = (number: number): string => {
+  return `${number * 100}%`;
+};
