@@ -37,6 +37,7 @@ const CalculatorInputs: FC<CalculatorInputsProps> = ({
       </td>
       <td>
         <input
+          aria-label='current'
           className='text-right'
           type='number'
           min={0}
