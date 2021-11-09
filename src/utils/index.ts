@@ -117,3 +117,7 @@ export const round = (number: number, decimals: number = 2): number => {
 export const percentFormat = (number: number): string => {
   return `${number * 100}%`;
 };
+
+export const hasZeroValues = (allocation: Allocation): boolean => {
+  return Object.values(allocation).every((value) => value === 0);
+};

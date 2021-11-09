@@ -7,7 +7,7 @@ import { Category, labels, Allocation } from '../../data/risks';
 import useCurrentRisk from '../../hooks/useCurrentRisk';
 
 import './styles.scss';
-import { getResults } from '../../utils';
+import { getResults, hasZeroValues } from '../../utils';
 import classNames from 'classnames';
 
 type CalculatorInputsProps = {
@@ -100,6 +100,7 @@ const Calculator = () => {
             />
             <td rowSpan={5} className='calculator__transfers'>
               {results &&
+                !hasZeroValues(allocation) &&
                 (results.transfers.length > 0 ? (
                   <ul>
                     {results.transfers.map((transfer, i) => (

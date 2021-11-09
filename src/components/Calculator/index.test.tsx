@@ -19,7 +19,7 @@ describe('<Calculator />', () => {
 
   test('renders with nothing on transfers', () => {
     const component = render(<Calculator />);
-    const transfers = component.container.querySelector('.calculator__transfers ul');
+    const transfers = component.container.querySelector('.calculator__transfers');
     expect(transfers).toBeEmptyDOMElement();
   });
 });
