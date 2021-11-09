@@ -19,7 +19,7 @@ const HomePage = () => {
                 Please select a Risk Level for your Investment allocation
               </h4>
 
-              <Grid alignY='bottom' className='grid-padding-x'>
+              <Grid gutters='padding' className='align-bottom'>
                 <Cell small={10} className='risk-level__selector'>
                   <RiskLevelSelect />
                 </Cell>
@@ -32,7 +32,7 @@ const HomePage = () => {
                 </Cell>
               </Grid>
 
-              <Grid className='grid-padding-x'>
+              <Grid gutters='padding'>
                 <Cell small={10} className='risk-level__table'>
                   {graph ? <Donut /> : <RiskLevelTable />}
                 </Cell>
