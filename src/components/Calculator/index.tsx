@@ -99,14 +99,19 @@ const Calculator = () => {
               onChange={(value) => dispatch(setCurrentAmount('bonds', value))}
             />
             <td rowSpan={5} className='calculator__transfers'>
-              <ul>
-                {results?.transfers.map((transfer, i) => (
-                  <li key={`transfer-${i}`}>
-                    Transfer ${transfer.value} from {labels[transfer.from]} to {labels[transfer.to]}
-                    .
-                  </li>
+              {results &&
+                (results.transfers.length > 0 ? (
+                  <ul>
+                    {results.transfers.map((transfer, i) => (
+                      <li key={`transfer-${i}`}>
+                        Transfer ${transfer.value} from {labels[transfer.from]} to{' '}
+                        {labels[transfer.to]}.
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className='text-center'>No transfers to make 👍🏻</p>
                 ))}
-              </ul>
             </td>
           </tr>
           <tr>
