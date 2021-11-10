@@ -63,13 +63,13 @@ const getTransfers = (diffs: Allocation) => {
     };
 
     if (firstPositiveDiff.value > firstNegativeDiff.value) {
-      sortedPositiveDiffs[0].value -= firstNegativeDiff.value;
+      sortedPositiveDiffs[0].value = round(sortedPositiveDiffs[0].value - firstNegativeDiff.value);
       const [, ...nonZeroNegativeDiffs] = sortedNegativeDiffs;
       sortedNegativeDiffs = nonZeroNegativeDiffs;
 
       transfers.push({ ...newTransfer, value: firstNegativeDiff.value });
     } else if (firstPositiveDiff.value < firstNegativeDiff.value) {
-      sortedNegativeDiffs[0].value -= firstPositiveDiff.value;
+      sortedNegativeDiffs[0].value = round(sortedNegativeDiffs[0].value - firstPositiveDiff.value);
       const [, ...nonZeroPositiveDiffs] = sortedPositiveDiffs;
       sortedPositiveDiffs = nonZeroPositiveDiffs;
 

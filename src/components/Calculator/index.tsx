@@ -22,9 +22,13 @@ const CalculatorInputs: FC<CalculatorInputsProps> = ({
   diff = '',
   onChange,
 }) => {
+  const MIN = 0;
+  const MAX = 1000000000;
+
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const value = e.target.value;
-    onChange(value ? parseFloat(value) : 0);
+    const valueStr = e.target.value;
+    const valueNum = valueStr ? parseFloat(valueStr) : 0;
+    onChange(valueNum >= MIN ? (valueNum <= MAX ? valueNum : MAX) : MIN);
   };
 
   return (
@@ -37,7 +41,8 @@ const CalculatorInputs: FC<CalculatorInputsProps> = ({
           aria-label='current'
           className='text-right'
           type='number'
-          min={0}
+          min={MIN}
+          max={MAX}
           step={100}
           id={`current-${name}`}
           value={value}
