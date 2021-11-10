@@ -1,8 +1,5 @@
-import { ChangeEventHandler, FC, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { ChangeEventHandler, FC, useMemo, useState } from 'react';
 
-import { State } from '../../redux/reducers';
-import { setCurrentAmount } from '../../redux/actions';
 import { Category, labels, Allocation } from '../../data/risks';
 import useCurrentRisk from '../../hooks/useCurrentRisk';
 
@@ -64,10 +61,19 @@ const CalculatorInputs: FC<CalculatorInputsProps> = ({
 
 const Calculator = () => {
   const risk = useCurrentRisk();
-  const allocation = useSelector<State, Allocation>((state) => state.currentAllocation);
-  const dispatch = useDispatch();
+  const [allocation, setAllocation] = useState<Allocation>({
+    bonds: 0,
+    largeCap: 0,
+    midCap: 0,
+    foreign: 0,
+    smallCap: 0,
+  });
 
   const results = useMemo(() => risk && getResults(allocation, risk), [allocation, risk]);
+
+  const handleChange = (category: Category, value: number) => {
+    setAllocation({ ...allocation, [category]: value });
+  };
 
   return (
     <div className='calculator'>
@@ -97,7 +103,7 @@ const Calculator = () => {
               value={allocation.bonds}
               newAmount={results?.newAmounts.bonds}
               diff={results?.diffs.bonds}
-              onChange={(value) => dispatch(setCurrentAmount('bonds', value))}
+              onChange={(value) => handleChange('bonds', value)}
             />
             <td rowSpan={5} className='calculator__transfers'>
               {results &&
@@ -122,7 +128,7 @@ const Calculator = () => {
               value={allocation.largeCap}
               newAmount={results?.newAmounts.largeCap}
               diff={results?.diffs.largeCap}
-              onChange={(value) => dispatch(setCurrentAmount('largeCap', value))}
+              onChange={(value) => handleChange('largeCap', value)}
             />
           </tr>
           <tr>
@@ -131,7 +137,7 @@ const Calculator = () => {
               value={allocation.midCap}
               newAmount={results?.newAmounts.midCap}
               diff={results?.diffs.midCap}
-              onChange={(value) => dispatch(setCurrentAmount('midCap', value))}
+              onChange={(value) => handleChange('midCap', value)}
             />
           </tr>
           <tr>
@@ -140,7 +146,7 @@ const Calculator = () => {
               value={allocation.foreign}
               newAmount={results?.newAmounts.foreign}
               diff={results?.diffs.foreign}
-              onChange={(value) => dispatch(setCurrentAmount('foreign', value))}
+              onChange={(value) => handleChange('foreign', value)}
             />
           </tr>
           <tr>
@@ -149,7 +155,7 @@ const Calculator = () => {
               value={allocation.smallCap}
               newAmount={results?.newAmounts.smallCap}
               diff={results?.diffs.smallCap}
-              onChange={(value) => dispatch(setCurrentAmount('smallCap', value))}
+              onChange={(value) => handleChange('smallCap', value)}
             />
           </tr>
         </tbody>
